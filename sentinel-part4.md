@@ -1,0 +1,3 @@
+## Cost Management with Sentinel
+
+Now that we've seen how to use Sentinel to enforce tagging policies, let's take a look at how we can use Sentinel to enforce cost management policies. A built-in function of Terraform Cloud and Terraform Enterprise is the ability to set a [cost estimate](https://www.terraform.io/docs/cloud/cost-estimation) on changes to your infrastructure. This is a great feature that allows you to see how much a change will cost before you apply it. However, it's not a guarantee that the change will be within your budget. This is where Sentinel comes in. We can use Sentinel to enforce a cost threshold on changes to your infrastructure. Let's take a look at another example.
