@@ -80,6 +80,7 @@ for aws_s3_buckets as _, output {
 valid = true
 for required_tags as required_tag {
 	valid = tags contains required_tag
+  if !valid { break }
 }
 
 # S3 Bucket should have the required tags
@@ -94,7 +95,7 @@ As we've done previously, let's break this down into its individual components:
 - Next, we create a variable called `aws_s3_buckets` and use the [`filter` Expression](https://docs.hashicorp.com/sentinel/language/collection-operations) to iterate over the resources in the plan and filter out any resources that are not of type `aws_s3_bucket` and are not in `managed` mode. We also filter out any resources that are not being created or updated.
 - Next, we create a variable called `required_tags` and set it to an array of the tags that we require.
 - Next, we create a variable called `tags` and set it to an empty array. We then use a [`for` loop](https://docs.hashicorp.com/sentinel/language/loops) to iterate over the `aws_s3_buckets` variable and append the tags to the `tags` variable.
-- Next, we create a variable called `valid` and set it to `true`. We then use another `for` loop to iterate over the `required_tags` variable and check if the `tags` variable contains the required tag. If it does, we set `valid` to `true`, otherwise, we set it to `false`.
+- Next, we create a variable called `valid` and set it to `true`. We then use a `for` loop to iterate over the `required_tags` variable and check if the `tags` variable contains the required tag. If it does not, we set `valid` to `false` and break out of the loop.
 - Finally, we create a rule called `main` and if `valid` is `true`, the rule will pass, otherwise, it will fail.
 
 If this is a bit confusing, don't worry. Try to read through it a few times and see if you can understand what's going on. Another idea would be to introduce `print` statements so you can see what's going on in each step. For example, you could add `print(aws_s3_buckets)` after the `aws_s3_buckets` variable and see what's in the variable. You can also add `print(tags)` after the `tags` `for` loop and see what's in the variable.
