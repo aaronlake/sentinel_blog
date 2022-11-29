@@ -45,7 +45,7 @@ bob_calendar = calendar.of("bob").today
 main = rule { not bob_calendar.has_event("vacation") }
 ```
 
-In the [Sentinel Playground link(https://play.sentinelproject.io/p/c-DVNzeORVG) you can see that the `import "calendar"` line references the `mock-calendar.sentinel` file that contains the following:
+In the [Sentinel Playground link](https://play.sentinelproject.io/p/c-DVNzeORVG) you can see that the `import "calendar"` line references the `mock-calendar.sentinel` file that contains the following:
 
 ```go
 has_event = func(event) {
