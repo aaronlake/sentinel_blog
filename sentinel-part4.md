@@ -62,9 +62,9 @@ resource "aws_instance" "demo" {
 }
 ```
 
-Once you've created your workspace, and ran a plan (probably don't apply, especially if you used `m5.24xlarge` as I did) you can go to the Runs tab and `Download Sentinel mocks`.
+Once you've created your workspace, and have run a plan (probably don't apply, especially if you used `m5.24xlarge` as I did) you can go to the Runs tab and `Download Sentinel mocks`.
 
-In the root of your repository, create a new file called `ec2-cost.sentinel`. Previously we've been using `import tfplan` and `import tfplan/v2 as tfplan` to check for misconfigurations. The `tfplan` mock data is exactly that, the _plan_ that Terraform generates, but that doesn't contain cost data. To get cost data we need to use `tfrun` since cost estimation is only available on runs.
+In the root of your repository, create a new file called `restrict-expensive-workspaces.sentinel`. Previously we've been using `import tfplan` and `import tfplan/v2 as tfplan` to check for misconfigurations. The `tfplan` mock data is exactly that, the _plan_ that Terraform generates, but that doesn't contain cost data. To get cost data we need to use `tfrun` since cost estimation is only available on runs.
 
 Here's the portion of the `mock-tfrun.sentinel` mock data that contains the cost estimate:
 
@@ -125,5 +125,18 @@ Okay, that was a lot. We should end up with a folder structure that looks like t
 
 ```bash
 .
-
+├── mocks
+│   ├── restrict-expensive-workspaces-mock-tfconfig.sentinel
+│   ├── restrict-expensive-workspaces-mock-tfconfig-v2.sentinel
+│   ├── restrict-expensive-workspaces-mock-tfplan.sentinel
+│   ├── restrict-expensive-workspaces-mock-tfplan-v2.sentinel
+│   ├── restrict-expensive-workspaces-mock-tfrun.sentinel
+│   ├── restrict-expensive-workspaces-mock-tfstate.sentinel
+│   └── restrict-expensive-workspaces-mock-tfstate-v2.sentinel
+├── restrict-expensive-workspaces.sentinel
+├── sentinel.hcl
+└── test
+    └── restrict-expensive-workloads
 ```
+
+...
