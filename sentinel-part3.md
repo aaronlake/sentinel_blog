@@ -92,7 +92,7 @@ main = rule {
 As we've done previously, let's break this down into its individual components:
 
 - First, we import the `tfplan/v2` module and alias it to `tfplan`. Aliasing modules are optional, but it's a good practice to do so to avoid confusion.
-- Next, we create a variable called `aws_s3_buckets` and use the [`filter` Expression](https://docs.hashicorp.com/sentinel/language/collection-operations) to iterate over the resources in the plan and filter out any resources that are not of type `aws_s3_bucket` and are not in `managed` mode. We also filter out any resources that are not being created or updated.
+- Next, we create a variable called `aws_s3_buckets` and use the [`filter` Expression](https://docs.hashicorp.com/sentinel/language/collection-operations) to iterate over the resources in the plan and filter out any resources that are of type `aws_s3_bucket` and are in `managed` mode. We also filter to catch resources that are `created` or `updated`.
 - Next, we create a variable called `required_tags` and set it to an array of the tags that we require.
 - Next, we create a variable called `tags` and set it to an empty array. We then use a [`for` loop](https://docs.hashicorp.com/sentinel/language/loops) to iterate over the `aws_s3_buckets` variable and append the tags to the `tags` variable.
 - Next, we create a variable called `valid` and set it to `true`. We then use a `for` loop to iterate over the `required_tags` variable and check if the `tags` variable contains the required tag. If it does not, we set `valid` to `false` and break out of the loop.
