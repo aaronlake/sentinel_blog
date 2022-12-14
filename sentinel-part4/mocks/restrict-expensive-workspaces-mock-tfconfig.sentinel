@@ -1,0 +1,129 @@
+import "strings"
+import "types"
+
+_modules = {
+	"root": {
+		"data": {
+			"aws_ami": {
+				"ubuntu": {
+					"config": {
+						"filter": [
+							{
+								"name": "name",
+								"values": [
+									"ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
+								],
+							},
+							{
+								"name": "virtualization-type",
+								"values": [
+									"hvm",
+								],
+							},
+						],
+						"most_recent": true,
+						"owners": [
+							"099720109477",
+						],
+					},
+					"provisioners": null,
+					"references": {
+						"filter": [
+							{
+								"name":   [],
+								"values": [],
+							},
+							{
+								"name":   [],
+								"values": [],
+							},
+						],
+						"most_recent": [],
+						"owners":      [],
+					},
+				},
+			},
+		},
+		"modules": {},
+		"outputs": {},
+		"providers": {
+			"aws": {
+				"alias": {
+					"": {
+						"config": {},
+						"references": {
+							"region": [
+								"var.region",
+							],
+						},
+						"version": "~> 4.0",
+					},
+				},
+				"config": {},
+				"references": {
+					"region": [
+						"var.region",
+					],
+				},
+				"version": "~> 4.0",
+			},
+		},
+		"resources": {
+			"aws_instance": {
+				"demo": {
+					"config": {
+						"instance_type": "m5.24xlarge",
+						"tags": {
+							"Name": "Demo Instance",
+							"TTL":  "1h",
+						},
+					},
+					"provisioners": null,
+					"references": {
+						"ami": [
+							"data.aws_ami.ubuntu.id",
+							"data.aws_ami.ubuntu",
+						],
+						"instance_type": [],
+						"tags":          [],
+					},
+				},
+			},
+		},
+		"variables": {
+			"region": {
+				"default":     "us-east-2",
+				"description": "The AWS region to use",
+			},
+		},
+	},
+}
+
+module_paths = [
+	[],
+]
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+modules = _modules.root.modules
+providers = _modules.root.providers
+resources = _modules.root.resources
+variables = _modules.root.variables
+outputs = _modules.root.outputs

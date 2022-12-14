@@ -1,0 +1,119 @@
+import "strings"
+
+providers = {
+	"aws": {
+		"alias": "",
+		"config": {
+			"region": {
+				"references": [
+					"var.region",
+				],
+			},
+		},
+		"full_name":           "registry.terraform.io/hashicorp/aws",
+		"module_address":      "",
+		"name":                "aws",
+		"provider_config_key": "aws",
+		"version_constraint":  "~> 4.0",
+	},
+}
+
+resources = {
+	"aws_instance.demo": {
+		"address": "aws_instance.demo",
+		"config": {
+			"ami": {
+				"references": [
+					"data.aws_ami.ubuntu.id",
+					"data.aws_ami.ubuntu",
+				],
+			},
+			"instance_type": {
+				"constant_value": "m5.24xlarge",
+			},
+			"tags": {
+				"constant_value": {
+					"Name": "Demo Instance",
+					"TTL":  "1h",
+				},
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "demo",
+		"provider_config_key": "aws",
+		"provisioners":        [],
+		"type":                "aws_instance",
+	},
+	"data.aws_ami.ubuntu": {
+		"address": "data.aws_ami.ubuntu",
+		"config": {
+			"filter": [
+				{
+					"name": {
+						"constant_value": "name",
+					},
+					"values": {
+						"constant_value": [
+							"ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*",
+						],
+					},
+				},
+				{
+					"name": {
+						"constant_value": "virtualization-type",
+					},
+					"values": {
+						"constant_value": [
+							"hvm",
+						],
+					},
+				},
+			],
+			"most_recent": {
+				"constant_value": true,
+			},
+			"owners": {
+				"constant_value": [
+					"099720109477",
+				],
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "data",
+		"module_address":      "",
+		"name":                "ubuntu",
+		"provider_config_key": "aws",
+		"provisioners":        [],
+		"type":                "aws_ami",
+	},
+}
+
+provisioners = {}
+
+variables = {
+	"region": {
+		"default":        "us-east-2",
+		"description":    "The AWS region to use",
+		"module_address": "",
+		"name":           "region",
+	},
+}
+
+outputs = {}
+
+module_calls = {}
+
+strip_index = func(addr) {
+	s = strings.split(addr, ".")
+	for s as i, v {
+		s[i] = strings.split(v, "[")[0]
+	}
+
+	return strings.join(s, ".")
+}

@@ -134,7 +134,7 @@ for aws_s3_buckets as _, output {
 
 If you run the policy in the [Sentinel Playground](https://play.sentinelproject.io/p/bb4encDTnN_E) you'll see that the policy fails as expected. If you add the `CostCenter` tag to the mock data and run the policy again, you'll see that the policy passes.
 
-## Wrapping Up
+## Wrap Up
 
 In this post, we've looked at a more complex example of a Sentinel policy. We've also looked at how to use the Sentinel Playground to test policies. In the next post, we'll look at how to implement a cost management policy using Terraform Cloud and integrate it with a VCS provider (GitHub in our case). Again, if you find yourself overwhelmed, don't worry, in future posts we'll look at some helper functions that will make things easier to implement.
 

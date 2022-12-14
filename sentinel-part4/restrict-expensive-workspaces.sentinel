@@ -1,0 +1,8 @@
+import "tfrun"
+import "decimal"
+
+proposed_monthly_cost = decimal.new(tfrun.cost_estimate.proposed_monthly_cost)
+
+main = rule {
+  proposed_monthly_cost <= decimal.new(1000)
+}
