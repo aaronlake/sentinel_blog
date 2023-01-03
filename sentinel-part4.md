@@ -62,7 +62,7 @@ resource "aws_instance" "demo" {
 }
 ```
 
-Once you've created your workspace, and have run a plan (probably don't apply, especially if you used `m5.24xlarge` as I did) you can go to the Runs tab and `Download Sentinel mocks`.
+Once you've created your workspace, and have run a plan (I wouldn't recommend applying, especially if you used a `m5.24xlarge` instance size like I did) you can go to the Runs tab and `Download Sentinel mocks`.
 
 In the root of your repository, create a new file called `restrict-expensive-workspaces.sentinel`. Previously we've been using `import tfplan` and `import tfplan/v2 as tfplan` to check for misconfigurations. The `tfplan` mock data is exactly that, the _plan_ that Terraform generates, but that doesn't contain cost data. To get cost data we need to use `tfrun` since cost estimation is only available on runs.
 
@@ -123,7 +123,7 @@ Next extract the contents of the mocks `.tar.gz` file you downloaded from Terraf
 
 Okay, that was a lot. We should end up with a folder structure that looks like this:
 
-```bash
+```
 .
 ├── mocks
 │   ├── restrict-expensive-workspaces-mock-tfconfig.sentinel
@@ -135,8 +135,12 @@ Okay, that was a lot. We should end up with a folder structure that looks like t
 │   └── restrict-expensive-workspaces-mock-tfstate-v2.sentinel
 ├── restrict-expensive-workspaces.sentinel
 ├── sentinel.hcl
-└── test
-    └── restrict-expensive-workloads
 ```
 
-...
+With all of this in place we're ready to push our code to our VCS provider. If you're using GitHub, you can create a new repository by clicking the `+` in the top right corner and selecting `New repository`. Give your repository a name, I'll call mine `sentinel-policies-blog` then click `Create repository`. Next, copy the `git remote add` command that GitHub provides and run it locally.
+
+```bash
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+```
