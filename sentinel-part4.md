@@ -144,3 +144,19 @@ git add .
 git commit -m "Initial commit"
 git push -u origin main
 ```
+
+### Connect VCS Repository to Terraform Cloud
+
+In Terraform Cloud, navigate to your Organization then click `Settings`.
+
+![Terraform Cloud Settings](assets/part4-settings.png)
+
+Next, click `Policy Sets` then `Connect a new policy set`.
+
+![Connect Policy Set 1](assets/part4-connect-1.png)
+
+Select your VCS provider, or `Connect to a different VCS provider` if you're using a different provider. Next, select the repository you created in the previous step, then click `Connect policy set`.
+
+![Connect Policy Set 2](assets/part4-connect-2.png)
+
+Congratulations! You've successfully completed this section by creating a new policy, uploaded it to a VCS provider and connected it to Terraform Cloud. In the next, and final section we'll bring in some standardizations and reusable modules to make our policies more maintainable.
