@@ -1,0 +1,10 @@
+{
+	"records": [
+		{
+			"key": "restrict-expensive-workspaces",
+			"source": "./restrict-expensive-workspaces/restrict-expensive-workspaces.sentinel",
+			"sourceSum": "",
+			"dest": "/home/alake/workspace/hashicorp/sentinel_blog/sentinel-part4/restrict-expensive-workspaces/restrict-expensive-workspaces.sentinel"
+		}
+	]
+}

@@ -4,5 +4,5 @@ import "decimal"
 proposed_monthly_cost = decimal.new(tfrun.cost_estimate.proposed_monthly_cost)
 
 main = rule {
-  proposed_monthly_cost <= decimal.new(1000)
+  proposed_monthly_cost.less_than_or_equals(1000)
 }

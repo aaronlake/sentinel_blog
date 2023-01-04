@@ -85,7 +85,7 @@ import "decimal"
 proposed_monthly_cost = decimal.new(tfrun.cost_estimate.proposed_monthly_cost)
 
 main = rule {
-  proposed_monthly_cost <= decimal.new(1000)
+  proposed_monthly_cost.less_than_or_equals(1000)
 }
 ```
 
@@ -106,15 +106,16 @@ First, let's create a new folder locally, I'll call mine `sentinel-policies-blog
 mkdir sentinel-policies-blog
 cd sentinel-policies-blog
 git init
-mkdir -p test/restrict-expensive-workloads
+mkdir -p restrict-expensive-workloads/test
 touch sentinel.hcl
 curl -s https://www.toptal.com/developers/gitignore/api/terraform > .gitignore
 ```
 
-Let's use our cost management policy `restrict-expensive-workspaces.sentinel` and save it in the root folder. Next, let's edit `sentinel.hcl` and add the following:
+Let's use our cost management policy `./restrict-expensive-workspaces/restrict-expensive-workspaces.sentinel`. Next, let's edit `sentinel.hcl` and add the following:
 
 ```go
 policy "restrict-expensive-workspaces" {
+  source = "./restrict-expensive-workspaces/restrict-expensive-workspaces.sentinel"
   enforcement_level = "hard-mandatory"
 }
 ```
@@ -125,16 +126,16 @@ Okay, that was a lot. We should end up with a folder structure that looks like t
 
 ```
 .
-├── mocks
-│   ├── restrict-expensive-workspaces-mock-tfconfig.sentinel
-│   ├── restrict-expensive-workspaces-mock-tfconfig-v2.sentinel
-│   ├── restrict-expensive-workspaces-mock-tfplan.sentinel
-│   ├── restrict-expensive-workspaces-mock-tfplan-v2.sentinel
-│   ├── restrict-expensive-workspaces-mock-tfrun.sentinel
-│   ├── restrict-expensive-workspaces-mock-tfstate.sentinel
-│   └── restrict-expensive-workspaces-mock-tfstate-v2.sentinel
-├── restrict-expensive-workspaces.sentinel
-├── sentinel.hcl
+├── restrict-expensive-workspaces
+│   ├── mock-tfconfig-v2.sentinel
+│   ├── mock-tfconfig.sentinel
+│   ├── mock-tfplan-v2.sentinel
+│   ├── mock-tfplan.sentinel
+│   ├── mock-tfrun.sentinel
+│   ├── mock-tfstate-v2.sentinel
+│   ├── mock-tfstate.sentinel
+│   └── restrict-expensive-workspaces.sentinel
+└── sentinel.hcl
 ```
 
 With all of this in place we're ready to push our code to our VCS provider. If you're using GitHub, you can create a new repository by clicking the `+` in the top right corner and selecting `New repository`. Give your repository a name, I'll call mine `sentinel-policies-blog` then click `Create repository`. Next, copy the `git remote add` command that GitHub provides and run it locally.
